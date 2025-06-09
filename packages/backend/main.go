@@ -2,8 +2,11 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 )
+
+const serverPort = ":8080"
 
 func main() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
@@ -11,5 +14,7 @@ func main() {
 	})
 
 	fmt.Println("Server listening on port 8080")
-	http.ListenAndServe(":8080", nil)
+	if err := http.ListenAndServe(serverPort, nil); err != nil {
+		log.Fatal(err)
+	}
 }
